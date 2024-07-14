@@ -22,14 +22,11 @@ class Evenement
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $jour = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $debut = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $heure_debut = null;
-
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $heure_fin = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $fin = null;
 
     #[ORM\ManyToOne(inversedBy: 'evenements')]
     private ?Lieu $lieu = null;
@@ -78,38 +75,26 @@ class Evenement
         return $this;
     }
 
-    public function getJour(): ?\DateTimeInterface
+    public function getDebut(): ?\DateTimeInterface
     {
-        return $this->jour;
+        return $this->debut;
     }
 
-    public function setJour(\DateTimeInterface $jour): static
+    public function setDebut(\DateTimeInterface $debut): static
     {
-        $this->jour = $jour;
+        $this->debut = $debut;
 
         return $this;
     }
 
-    public function getHeureDebut(): ?\DateTimeInterface
+    public function getFin(): ?\DateTimeInterface
     {
-        return $this->heure_debut;
+        return $this->fin;
     }
 
-    public function setHeureDebut(\DateTimeInterface $heure_debut): static
+    public function setFin(\DateTimeInterface $fin): static
     {
-        $this->heure_debut = $heure_debut;
-
-        return $this;
-    }
-
-    public function getHeureFin(): ?\DateTimeInterface
-    {
-        return $this->heure_fin;
-    }
-
-    public function setHeureFin(\DateTimeInterface $heure_fin): static
-    {
-        $this->heure_fin = $heure_fin;
+        $this->fin = $fin;
 
         return $this;
     }
