@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ path("app_home") }}">Gestion d'évènements</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Gestion d'évènements</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    {% if is_granted("ROLE_USER") %}
+                        {% set navMenu = [
+                            {'path': '/', 'name':'app_home', 'label': 'Accueil'},
+                            {'path': 'mes-inscriptions','name':'app_mes_inscriptions', 'label': 'Mes inscriptions'},
+                            {'path': 'evenement_new','name':'app_create_evenement_form', 'label': 'Créer un évènement'},
+                            {'path': 'logout','name':'app_logout', 'label': 'Déconnexion'}
+                        ] %}
+                    {% else %}
+                        {% set navMenu = [
+                            {'path': '/', 'name':'app_home', 'label': 'Accueil'},
+                            {'path': 'login','name':'app_login', 'label': 'Connexion'},
+                            {'path': 'register','name':'app_register', 'label': 'Inscription'}
+                        ] %}
+                    {% endif %}
+
+                    {% if is_granted("ROLE_ADMIN") %}
+                        {% set navMenu = navMenu|merge([{'path': 'lieu','name':'app_lieu', 'label': 'Gérer les lieux'}]) %}
+                    {% endif %}
+
+                    {% for link in navMenu %}
+                        <li class="nav-item">
+                            <a class="nav-link {{ app.request.attributes.get("_route") == link.name ? 'active fw-bold' : '' }}"
+                               {{ app.request.attributes.get("_route") == link.name ? 'aria-current="page"' : ''}}
+                               href="{{ path(link.name) }}">
+                                    {{ link.label }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

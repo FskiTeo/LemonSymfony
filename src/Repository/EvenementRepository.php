@@ -16,6 +16,16 @@ class EvenementRepository extends ServiceEntityRepository
         parent::__construct($registry, Evenement::class);
     }
 
+    public function findAllOrderByDate(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->where('e.debut > :now')
+            ->orderBy('e.debut, e.fin', 'ASC')
+            ->setParameter('now', new \DateTime())
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Evenement[] Returns an array of Evenement objects
     //     */

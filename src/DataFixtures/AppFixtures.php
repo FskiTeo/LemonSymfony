@@ -34,7 +34,7 @@ class AppFixtures extends Fixture
             $utilisateur->setEmail($faker->email())
                         ->setPrenom($faker->firstName())
                         ->setNom($faker->lastName())
-                        ->setPassword($this->hasher->hashPassword($utilisateur, "LemonInteractive{$i}*"));
+                        ->setPassword($this->hasher->hashPassword($utilisateur, "LemonLille59*"));
             if($i == 0){
                 $utilisateur->setRoles(['ROLE_ADMIN']);
             }
